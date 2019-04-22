@@ -1,0 +1,33 @@
+{% extends "bookshelf/base.html" %}
+
+{% block content %}
+  <h1>Список книг</h1>
+  <input type="text" name="N" value="{{N}}"><input type="submit" name="name" value="Поиск">
+  
+  {% if book_list %}
+  <table border=0>
+  <tr>
+    <td>
+	Название книги 
+	<button onclick="">▲</button><button onclick="">▼</button>
+	</td><td>Автор
+	<button onclick="">▲</button><button onclick="">▼</button>
+	</td><td> Статус
+	<button onclick="">▲</button><button onclick="">▼</button>
+	</td><td>Читатель
+	<button onclick="">▲</button><button onclick="">▼</button></td><td>
+	Срок сдачи <button onclick="">▲</button><button onclick="">▼</button>
+      </td>
+	  </tr>
+    {% for book in book_list %}
+    <tr>
+    <td>	
+        <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> </td><td>({{book.author}})</td><td> ____</td><td> <a href="">Иванов</a></td><td>01.01.2019
+      </td>
+	  </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+    <p>В библиотеке нет книг.</p>
+  {% endif %}
+{% endblock %}
