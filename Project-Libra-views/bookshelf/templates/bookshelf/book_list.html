@@ -1,0 +1,23 @@
+{% extends "bookshelf/base.html" %}
+
+{% block content %}
+  <h1>Список книг</h1>
+  {% if book_list %}
+  <table border=0>
+  <tr>
+    <td>
+	Название книги </td><td>Автор</td><td> Статус</td><td>Читатель</td><td>Срок сдачи
+      </td>
+	  </tr>
+    {% for book in book_list %}
+    <tr>
+    <td>	
+        <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> </td><td>({{book.author}})</td><td> ____</td><td> <a href="">Иванов</a></td><td>01.01.2019
+      </td>
+	  </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+    <p>В библиотеке нет книг.</p>
+  {% endif %}
+{% endblock %}
