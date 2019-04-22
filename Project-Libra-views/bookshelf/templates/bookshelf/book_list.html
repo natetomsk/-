@@ -2,11 +2,21 @@
 
 {% block content %}
   <h1>Список книг</h1>
+  <input type="text" name="N" value="{{N}}"><input type="submit" name="name" value="Поиск">
+  
   {% if book_list %}
   <table border=0>
   <tr>
     <td>
-	Название книги </td><td>Автор</td><td> Статус</td><td>Читатель</td><td>Срок сдачи
+	Название книги 
+	<button onclick="">▲</button><button onclick="">▼</button>
+	</td><td>Автор
+	<button onclick="">▲</button><button onclick="">▼</button>
+	</td><td> Статус
+	<button onclick="">▲</button><button onclick="">▼</button>
+	</td><td>Читатель
+	<button onclick="">▲</button><button onclick="">▼</button></td><td>
+	Срок сдачи <button onclick="">▲</button><button onclick="">▼</button>
       </td>
 	  </tr>
     {% for book in book_list %}
