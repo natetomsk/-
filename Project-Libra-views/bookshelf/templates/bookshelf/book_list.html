@@ -2,27 +2,26 @@
 
 {% block content %}
   <h1>Список книг</h1>
-  <input type="text" name="N" value="{{N}}"><input type="submit" name="name" value="Поиск">
+  <input type="text" name="N" value="{{N}}"><input type="submit" name="name" value="Поиск"> <input type="submit" name="name" value="Добавить книгу">
   
   {% if book_list %}
   <table border=0>
   <tr>
-    <td>
-	Название книги 
-	<button onclick="">▲</button><button onclick="">▼</button>
-	</td><td>Автор
-	<button onclick="">▲</button><button onclick="">▼</button>
-	</td><td> Статус
-	<button onclick="">▲</button><button onclick="">▼</button>
-	</td><td>Читатель
-	<button onclick="">▲</button><button onclick="">▼</button></td><td>
-	Срок сдачи <button onclick="">▲</button><button onclick="">▼</button>
-      </td>
+    <td><button onclick="">Название книги</button></td>
+	<td><button onclick="">Автор</button></td>
+	<td><button onclick="">Статус</button></td>
+	<td><button onclick="">	Читатель</button></td>
+	<td><button onclick="">	Срок сдачи </button></td>
+      
 	  </tr>
     {% for book in book_list %}
     <tr>
     <td>	
-        <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> </td><td>({{book.author}})</td><td> ____</td><td> <a href="">Иванов</a></td><td>01.01.2019
+        <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> </td><td>({{book.author}})</td><td> ____</td><td> 
+		
+		{{ user.last_name }}  {{user.first_name}}
+		
+		</td><td>01.01.2019
       </td>
 	  </tr>
     {% endfor %}

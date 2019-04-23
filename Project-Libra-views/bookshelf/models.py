@@ -46,6 +46,10 @@ class A_Logger(models.Model):#запись о выдаче книги
 class Log_user(models.Model):#пользователь
     first_name=models.CharField(max_length=100)#имя
     last_name=models.CharField(max_length=100)#фамилия
+    number_phone=models.CharField(max_length=15, default='-')#телефон
+    user_pic=models.CharField(max_length=250, default='Ссылка')#телефон
+	#user_pic=models.CharField(max_length=250, default='Ссылка')#ссылка на картинку
+	#number_phone=models.CharField(max_length=15, default='#')#фамилия
     def __str__(self):
         """String for representing the Model object."""
         return '{0} {1}'.format(self.first_name,self.last_name) 

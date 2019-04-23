@@ -57,27 +57,24 @@ padding: 5px;
    	
    
      
-        <h1>Общие сведения</h1>
-        <table id=#t01>
-        <tr>
-            <td> <strong><a href="{% url 'books' %}">Книги </a></strong> </td>
-            <td> {{ book }}</td>
-        </tr>
-		<tr>
-            <td> <strong><a href="{% url 'authors' %}">Авторы </a></strong> </td>
-            <td> {{ num_authors }}</td>
-        </tr>
-        <tr>
-            <td><strong>Зарезервированные книги &nbsp;&nbsp;</strong></td>
-            <td>{{ book_onloan }}</td>
-        </tr>
-        <tr>
-            <td><strong><a href="{% url 'users' %}">Читатели</a></strong></td>
-            <td>{{ num_users }}</td>
-        </tr>
-        <tr>
-            <td><strong>Доступные книги</strong></td>
-            <td>{{ book_av }}</td>
-        </tr>
-    </table>
+        <h1>Общие сведения читателя</h1>
+        
+		
+	{% if log_user_list %}
+  <table border=0>
+	{% for user in log_user_list %}
+    <tr>
+    <td>	
+        <a href="{{ user.get_absolute_url }}">{{ user.last_name }}  {{user.first_name}}</a>
+		 {{user.number_phone}} <br>
+		  {{user.user_pic}}<br>
+		  
+      </td>
+	  </tr>
+    {% endfor %}
+  </table>
+  {% else %}
+    <p>В библиотеке нет книг.</p>
+  {% endif %}
+		
 {% endblock %}
