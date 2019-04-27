@@ -41,7 +41,7 @@ class A_Logger(models.Model):#запись о выдаче книги
     
     def __str__(self):
         """String for representing the Model object."""
-        return '({0}) and {1}'.format(self.borrower,self.status)       
+        return '{0} ({1}): {2}'.format(self.borrower, self.book, self.status)       
 		
 class Log_user(models.Model):#пользователь
     first_name=models.CharField(max_length=100)#имя
@@ -52,6 +52,6 @@ class Log_user(models.Model):#пользователь
 	#number_phone=models.CharField(max_length=15, default='#')#фамилия
     def __str__(self):
         """String for representing the Model object."""
-        return '{0} {1}'.format(self.first_name,self.last_name) 
+        return '{0} {1}'.format(self.first_name, self.last_name) 
 
 
