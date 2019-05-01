@@ -1,5 +1,6 @@
+from django.conf.urls import url
 from django.urls import path
-from . import views
+from . import views, authentication
 
 urlpatterns = [
     path('', views.main_page, name='index'),
@@ -10,5 +11,6 @@ urlpatterns = [
 	path('authors/', views.Authors.as_view(), name='authors'),
 	path('users/', views.Users.as_view(), name='users'),
 	path('user_profile/', views.user_profile, name='user_profile'),
+    url(r'^authorization/$', authentication.authorization, name='authorization'),
     #path('book/<int:pk>', views.BookDetailView.as_view(), name='book-detail'), 
 ]

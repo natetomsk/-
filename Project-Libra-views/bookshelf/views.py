@@ -157,15 +157,179 @@ class A_Loggers(generic.ListView):
     model = A_Logger
 
 class Books_Reserved(generic.ListView):
-    model = Book
-    def get_queryset(self):
-        self.publisher = get_object_or_404(A_Logger, status='Reserved')
-        return Book.objects.filter(a_logger=self.publisher)
+    queryset = Book.objects.order_by('title')
+    def get_context_data(self, **kwargs):
+        logger=A_Logger.objects.filter(status='Reserved')
+        context = {}
+        book_list=list(self.queryset.values())
+        
+        logger=list(logger.values())
+        logger_id_book=[log['book_id'] for log in logger]
+        logger_id_borrower=[log['borrower_id'] for log in logger]
+        i=0
+        while i<len(book_list):
+            author_ = model_to_dict(Author.objects.get(id=book_list[i]['author_id']))
+            book_list[i].pop('author_id')
+            book_list[i]['author_first_name']=author_['first_name']
+            book_list[i]['author_last_name']=author_['last_name']
+            if(book_list[i]['id'] in logger_id_book):
+                book_list[i]['status']='Reserved'
+                id_=logger_id_borrower[logger_id_book.index(book_list[i]['id'])]
+                print("---", id_, book_list[i]['id'])
+                reader_=model_to_dict(Log_user.objects.get(id=id_))
+                print(reader_)
+                book_list[i]['reader_first_name']=reader_['first_name']
+                book_list[i]['reader_last_name']=reader_['last_name']
+            else:
+                del(book_list[i])
+                continue
+            i+=1
+        self.book_list=book_list
+        context['book_list'] = book_list
+        return context
+        
+    def post(self, request, *args, **kwargs):
+        book_list=self.get_context_data(**kwargs)['book_list']
+        fil=''
+        if request.POST:
+            #считывание размеров таблицы
+            #фильтр
+            fil = str(request.POST.get('N', None))
+            S = str(request.POST.get('S', None))
+            Obr=str(request.POST.get('Obr', None))
+            Search=str(request.POST.get('Search', None))
+            if(Obr==""):
+                Obr="0"
+            self.queryset=Book.objects.all()
+            if(str(request.POST.get('name', None))!='Поиск'):
+                fil=Search
+            else:
+                Search=fil
+            i=0
+            while i<len(book_list):
+                if(all(fil.lower() not in str(title).lower() for title in book_list[i].values())):
+                    del(book_list[i])
+                else:
+                    i+=1
+            
+            def sort_col(i):
+                return i[pol]
+            #сортировка
+            if(S=='0'):
+                pol='title'
+                book_list.sort(key=sort_col)
+            elif(S=='1'):
+                pol='author_first_name'
+                book_list.sort(key=sort_col)
+                pol='author_last_name'
+                book_list.sort(key=sort_col)
+            elif(S=='2'):
+                pol='status'
+                book_list.sort(key=sort_col)
+            elif(S=='3'):
+                pol='reader_first_name'
+                book_list.sort(key=sort_col)
+                pol='reader_last_name'
+                book_list.sort(key=sort_col)
+            
+            if(Obr==S):
+                Obr='None'
+                book_list=reversed(book_list)
+            else:
+                Obr=S
+        
+        context={
+                'Search' : Search,
+                'Obr' : Obr,
+                'N' : fil,
+                'book_list' : book_list
+                }
+        return render(request, 'bookshelf/book_list.html', context=context)
 	
 class Books_Available(generic.ListView):
-    model = Book
-    def get_queryset(self):
-        self.publisher = get_object_or_404(A_Logger, status='Available')
-        return Book.objects.filter(a_logger=self.publisher)
+    queryset = Book.objects.order_by('title')
+    def get_context_data(self, **kwargs):
+        logger=A_Logger.objects.filter(status='Reserved')
+        context = {}
+        book_list=list(self.queryset.values())
+        
+        logger=list(logger.values())
+        logger_id_book=[log['book_id'] for log in logger]
+        logger_id_borrower=[log['borrower_id'] for log in logger]
+        i=0
+        while i<len(book_list):
+            author_ = model_to_dict(Author.objects.get(id=book_list[i]['author_id']))
+            book_list[i].pop('author_id')
+            book_list[i]['author_first_name']=author_['first_name']
+            book_list[i]['author_last_name']=author_['last_name']
+            if(book_list[i]['id'] not in logger_id_book):
+                book_list[i]['status']='Available'
+                book_list[i]['reader_first_name']=''
+                book_list[i]['reader_last_name']=''
+            else:
+                del(book_list[i])
+                continue
+            i+=1
+        self.book_list=book_list
+        context['book_list'] = book_list
+        return context
+        
+    def post(self, request, *args, **kwargs):
+        book_list=self.get_context_data(**kwargs)['book_list']
+        fil=''
+        if request.POST:
+            #считывание размеров таблицы
+            #фильтр
+            fil = str(request.POST.get('N', None))
+            S = str(request.POST.get('S', None))
+            Obr=str(request.POST.get('Obr', None))
+            Search=str(request.POST.get('Search', None))
+            if(Obr==""):
+                Obr="0"
+            self.queryset=Book.objects.all()
+            if(str(request.POST.get('name', None))!='Поиск'):
+                fil=Search
+            else:
+                Search=fil
+            i=0
+            while i<len(book_list):
+                if(all(fil.lower() not in str(title).lower() for title in book_list[i].values())):
+                    del(book_list[i])
+                else:
+                    i+=1
+            
+            def sort_col(i):
+                return i[pol]
+            #сортировка
+            if(S=='0'):
+                pol='title'
+                book_list.sort(key=sort_col)
+            elif(S=='1'):
+                pol='author_first_name'
+                book_list.sort(key=sort_col)
+                pol='author_last_name'
+                book_list.sort(key=sort_col)
+            elif(S=='2'):
+                pol='status'
+                book_list.sort(key=sort_col)
+            elif(S=='3'):
+                pol='reader_first_name'
+                book_list.sort(key=sort_col)
+                pol='reader_last_name'
+                book_list.sort(key=sort_col)
+            
+            if(Obr==S):
+                Obr='None'
+                book_list=reversed(book_list)
+            else:
+                Obr=S
+        
+        context={
+                'Search' : Search,
+                'Obr' : Obr,
+                'N' : fil,
+                'book_list' : book_list
+                }
+        return render(request, 'bookshelf/book_list.html', context=context)
 
 

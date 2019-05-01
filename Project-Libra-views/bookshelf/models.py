@@ -37,7 +37,7 @@ class A_Logger(models.Model):#запись о выдаче книги
         choices=LOAN_STATUS,
         blank=True,
         default='Available',
-        help_text='Book availability')#тип записи
+        help_text='Book availability')#статус записи
     
     def __str__(self):
         """String for representing the Model object."""
