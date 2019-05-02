@@ -58,23 +58,16 @@ padding: 5px;
    
      
     <h1>Общие сведения читателя</h1>
-    {{ user.last_name }} {{ user.first_name }} {{ user.middle_name }}
-    <br>
-    <img src="{{pic}}" width=150></td>
-    <br>
-    {{ user.description }}
-    <br>
-    {% if book_list %}
-        <table border=0>
-        <td>Книга</td><td>Дата выдачи</td><td>Автор</td>
-        {% for book in book_list %}
-            <tr>
-            <td><a href="../../book/{{ book.id }}/">{{ book.title }}</a></td>
-            <td>{{ book.start_date }}</td><td><a href="../../author/{{ book.author_id }}/">{{ book.author }}</a></td>
-            </tr>
-		{% endfor %}
+    {% if book %}
+        Код книги: {{book.number_code}}<br>
+        Название: <a href="../../book/{{ book.id }}/">{{ book.title }}</a><br>
+        Автор: <a href="../../author/{{ book.author_id }}/">{{ book.author }}</a><br>
+        <br>
+        <img src="{{pic}}" width=150></td>
+        <br>
+        {{ book.description }}
     {% else %}
-        <p>Книг нет</p>
+        <p>Не существует.</p>
     {% endif %}
         <font color=red><i>{{comment}}</i></font>
 {% endblock %}

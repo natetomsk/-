@@ -11,19 +11,25 @@
 	  <tr>
 		<input type="hidden" name="Obr" value="{{Obr}}">
         <input type="hidden" name="Search" value="{{Search}}">
-		<td><button type="submit" name="S" value="0">Название книги</button></td>
-		<td><button type="submit" name="S" value="1">Автор</button></td>
-		<td><button type="submit" name="S" value="2">Статус</button></td>
-		<td><button type="submit" name="S" value="3">Читатель</button></td>
-		<td><button type="submit" name="S" value="4">Срок сдачи </button></td>
+		<td><button type="submit" name="S" value="0" style='width:100%'>Название книги</button></td>
+		<td><button type="submit" name="S" value="1" style='width:100%'>Автор</button></td>
+		<td><button type="submit" name="S" value="2" style='width:100%'>Статус</button></td>
+		<td><button type="submit" name="S" value="3" style='width:100%'>Читатель</button></td>
 	   </form>
 		  </tr>
 		{% for book in book_list %}
             <tr>
             <td>
-                <a href="{{ book.get_absolute_url }}">{{ book.title }}</a> </td><td>{{book.author_last_name}} {{book.author_first_name}}</td>
-                <td>{{book.status}}</td><td>{{book.reader_last_name}} {{book.reader_first_name}}</td>
-                <td>01.01.2019
+                <a href="http://127.0.0.1:8000/book/{{ book.id }}/">{{ book.title }}</a> </td>
+                <td><a href="http://127.0.0.1:8000/author/{{ book.author_id }}/">{{book.author_last_name}} {{book.author_first_name}}</a></td>
+                <td>
+                {% if book.status == 'Available' %}
+                    <a href="http://127.0.0.1:8000/books/available/">{{book.status}}</a>
+                {% else %}
+                    <a href="http://127.0.0.1:8000/books/reserved/">{{book.status}}</a>
+                {% endif %}
+                </td>
+                <td><a href="http://127.0.0.1:8000/user/{{ book.reader_id }}/">{{book.reader_last_name}} {{book.reader_first_name}}</a></td>
             </td>
             </tr>
 		{% endfor %}
@@ -31,4 +37,5 @@
   {% else %}
     <p>В библиотеке нет книг.</p>
   {% endif %}
+  <font color=red><i>{{comment}}</i></font>
 {% endblock %}

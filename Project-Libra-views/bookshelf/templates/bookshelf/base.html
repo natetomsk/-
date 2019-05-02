@@ -60,9 +60,9 @@ padding: 5px;
 </head>
 <body>
 <div class="block3">
-<h1 align="center" >Портал администрирования библиотеки</h1>
+<!--<h1 align="center" >Портал администрирования библиотеки</h1>-->
 <b>Пользователь:</b> {{login}}   
-<BR><button onclick="window.location='http://127.0.0.1:8000/polls/authorization/'">Выход</button>
+<BR><button onclick="window.location='http://127.0.0.1:8000/authorization/'">Выход</button>
 <button onclick="window.location='http://127.0.0.1:8000/admin/'">Панель администратора</button>
 
    
@@ -78,6 +78,7 @@ padding: 5px;
           <li><a href="{% url 'books' %}">Все книги</a></li>
           <li><a href="{% url 'authors' %}">Все авторы</a></li>
 		  <li><a href="{% url 'users' %}">Все читатели</a></li>
+          <li><a href="{% url 'records' %}">Сдать/Взять<br>книгу</a></li>
         </ul>
      {% endblock %}
       </div>
