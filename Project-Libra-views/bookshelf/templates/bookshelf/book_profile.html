@@ -2,7 +2,7 @@
   {% block content %}
     <head>
        
-        <title>Library Admin</title>
+        <title>{{ book.title }}</title>
         <style>
                 table, th, td {
                   align-content: center;
@@ -57,13 +57,15 @@ padding: 5px;
    	
    
      
-    <h1>Общие сведения читателя</h1>
+    <h3>Книга: {{ book.title }}</h3>
     {% if book %}
-        Код книги: {{book.number_code}}<br>
-        Название: <a href="../../book/{{ book.id }}/">{{ book.title }}</a><br>
-        Автор: <a href="../../author/{{ book.author_id }}/">{{ book.author }}</a><br>
+        <b>Код книги:</b> {{book.number_code}}<br>
+        <b>Название:</b> <a href="../../book/{{ book.id }}/">{{ book.title }}</a><br>
+        <b>Автор:</b> <a href="../../author/{{ book.author_id }}/">{{ book.author }}</a><br>
         <br>
         <img src="{{pic}}" width=150></td>
+        <br>
+        <b>Описание:</b>
         <br>
         {{ book.description }}
     {% else %}
