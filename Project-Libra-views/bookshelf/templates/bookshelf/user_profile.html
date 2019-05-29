@@ -56,8 +56,13 @@ padding: 5px;
    <body>
     <h3><b>Читатель: {{ user.last_name }} {{ user.first_name }} {{ user.middle_name }}</b></h3>
     <br>
-    <img src="{{pic}}" width=150></td>
+    <img src="{{pic}}" width=350 align="right">
     <br>
+	
+	<b>Номер читательского билета:</b>
+    {{ user.number_code  }} <br>
+	<b>Номер телефона:</b>   
+    {{ 	user.number_phone }} <br>
     <b>Описание:</b>
     <br>
     {{ user.description }}

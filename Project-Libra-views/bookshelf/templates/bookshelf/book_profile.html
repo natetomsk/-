@@ -59,12 +59,12 @@ padding: 5px;
      
     <h3>Книга: {{ book.title }}</h3>
     {% if book %}
+	<img src="{{pic}}" width=350 align="right">
         <b>Код книги:</b> {{book.number_code}}<br>
         <b>Название:</b> <a href="../../book/{{ book.id }}/">{{ book.title }}</a><br>
         <b>Автор:</b> <a href="../../author/{{ book.author_id }}/">{{ book.author }}</a><br>
         <br>
-        <img src="{{pic}}" width=150></td>
-        <br>
+        
         <b>Описание:</b>
         <br>
         {{ book.description }}

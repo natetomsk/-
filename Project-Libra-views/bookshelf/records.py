@@ -22,7 +22,7 @@ def records(request):
         Num1 = request.POST.get('Num1', None)
         Num2 = request.POST.get('Num2', None)
         tip = request.POST.get('tip', None)
-        
+        print(Num1, Num2, tip)
         try:
             id1=Log_user.objects.get(number_code=Num2)
             id2=Book.objects.get(number_code=Num1)

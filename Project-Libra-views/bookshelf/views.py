@@ -55,6 +55,10 @@ def user_profile(request, name):
     comment=""
     try:
         user=Log_user.objects.get(id=int(name))
+		
+        if(user.middle_name==None):
+            user.middle_name=""
+		
         pic=str(user.pic)
         
     except:
@@ -74,6 +78,9 @@ def author_profile(request, name):
         author=Author.objects.get(id=int(name))
         book=Book.objects.filter(author=author)
         author=author.__dict__
+		
+        if(author['middle_name']==None):
+            author['middle_name']=""
         pic=str(author['pic'])
     except:
         title=None
